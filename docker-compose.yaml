@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  web:
+    image: weavej/php:7.3.0
+    ports:
+      - target: 80
+        published: 83
+        protocol: tcp
+        mode: host
+    deploy:
+      placement:
+        constraints: [node.platform.OS == windows]
+# Run: docker stack deploy -c docker-compose.yaml php
