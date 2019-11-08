@@ -2,8 +2,6 @@
 
 node (label: 'win-agent-1') {
     def app
-  /*  EMAIL_TO = 'jay.weaver@usda.gov'
-  try { */
       stage('Clone repository') {
           /* Let's make sure we have the repository cloned to our workspace */
           checkout scm
@@ -48,17 +46,4 @@ node (label: 'win-agent-1') {
       stage('Prune Docker Images') {
         bat 'docker system prune -f'
       }
-
-    currentBuild.result = 'SUCCESS'
-  /*}
-  catch (err) {
-    currentBuild.result = 'FAILURE'
-  }
-  finally {
-    mail to: EMAIL_TO,
-         from: 'jenkins.fs@usda.gov',
-         subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-         body: "${env.BUILD_URL} has result ${currentBuild.result}"
-  } */
-
 }
