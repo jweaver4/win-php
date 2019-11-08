@@ -2,8 +2,8 @@
 
 node (label: 'win-agent-1') {
     def app
-    EMAIL_TO = 'jay.weaver@usda.gov'
-  try {
+  /*  EMAIL_TO = 'jay.weaver@usda.gov'
+  try { */
       stage('Clone repository') {
           /* Let's make sure we have the repository cloned to our workspace */
           checkout scm
@@ -40,7 +40,7 @@ node (label: 'win-agent-1') {
         sh 'docker ps -f name=php -q | xargs --no-run-if-empty docker container stop'
         sh 'docker container ls -a -fname=php -q | xargs -r docker container rm'
       }
-      
+
       stage('Deploy new container') {
         docker.image("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}").run("--name php -p 8081:80")
       }
@@ -50,7 +50,7 @@ node (label: 'win-agent-1') {
       }
 
     currentBuild.result = 'SUCCESS'
-  }
+  /*}
   catch (err) {
     currentBuild.result = 'FAILURE'
   }
@@ -59,6 +59,6 @@ node (label: 'win-agent-1') {
          from: 'jenkins.fs@usda.gov',
          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
          body: "${env.BUILD_URL} has result ${currentBuild.result}"
-  }
+  } */
 
 }
