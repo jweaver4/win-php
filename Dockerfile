@@ -5,7 +5,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 WORKDIR /Users/ContainerAdministrator/Downloads
 
 # Visual C++ 2015 Redistributable
-RUN "(New-Object System.Net.WebClient).DownloadFile('http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe', 'c:\tmp\vc_redist.x64.exe')"" \
+RUN "(New-Object System.Net.WebClient).DownloadFile('http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe', 'c:\tmp\vc_redist.x64.exe')"; \
     # Invoke-WebRequest 'http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe' -OutFile 'vc_redist.x64.exe'; \
     # Start-Process '.\vc_redist.x64.exe' '/install /passive /norestart' -Wait; \
     Start-Process 'c:\tmp\vc_redist.x64.exe' '/install /passive /norestart' -Wait; \
