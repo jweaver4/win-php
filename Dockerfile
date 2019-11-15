@@ -5,12 +5,9 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 WORKDIR /Users/ContainerAdministrator/Downloads
 
 # Visual C++ 2015 Redistributable
-RUN $destination =  'c:\tmp\vc_redist.x64.exe'; \
-    $source = 'http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe'; \
-    (New-Object System.Net.WebClient).DownloadFile($source, $destination ); \
-   # Invoke-WebRequest 'http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe' -OutFile 'vc_redist.x64.exe'; \
-    Start-Process 'c:\tmp\vc_redist.x64.exe' '/install /passive /norestart' -Wait; \
-    Remove-Item c:\tmp\vc_redist.x64.exe;
+RUN Invoke-WebRequest 'http://docker-lab:8081/artifactory/windows-server-local/test/vc_redist.x64.exe' -OutFile 'vc_redist.x64.exe'; \
+    Start-Process '.\vc_redist.x64.exe' '/install /passive /norestart' -Wait; \
+    Remove-Item vc_redist.x64.exe;
 
 # Install PHP
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
