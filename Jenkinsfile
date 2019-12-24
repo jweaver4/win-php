@@ -28,16 +28,13 @@ node (label: 'win-agent-1') {
       }
    }
 
-    stage('Remove old container') {
-      sh 'docker ps -f name=php -q | xargs --no-run-if-empty docker container stop'
-      sh 'docker container ls -a -fname=php -q | xargs -r docker container rm'
-    }
+   stage('Deploy new container') {
+     docker.image("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}").run("--name php -p 8081:80")
+   }
 
-    stage('Deploy new container') {
-      docker.image("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}").run("--name php -p 8081:80")
-    }
-
-    stage('Prune Docker Images') {
+    stage('Remove old image & container') {
+      bat 'docker ps -f name=php -q | xargs --no-run-if-empty docker container stop'
+      bat 'docker container ls -a -fname=php -q | xargs -r docker container rm'
       bat 'docker system prune -f'
     }
 }
