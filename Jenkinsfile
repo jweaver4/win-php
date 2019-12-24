@@ -8,12 +8,6 @@ node (label: 'win-agent-1') {
           checkout scm
     }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-        * docker build on the command line */
-        app = docker.build("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}", '--no-cache --pull .')
-    }
-
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
         * For this example, we're using a Volkswagen-type approach ;-) */
@@ -25,17 +19,16 @@ node (label: 'win-agent-1') {
       }
     }
 
-    stage('Push image to DTR') {
-    /* Finally, we'll push the image with two tags:
-      * First, the incremental build number from Jenkins
-      * Second, the 'latest' tag.
-      * Pushing multiple tags is cheap, as all the layers are reused. */
+    stage('Build container') {
+      /* This builds the actual image; synonymous to
+      * docker build on the command line. Copies image to DTR */
       docker.withRegistry('http://pe-201642-agent.puppetdebug.vlan:5000', 'portus_registry') {
-        app.push("${env.BUILD_NUMBER}")
+          app = docker.build("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}", '--no-cache --pull .')
+          app.push("${env.BUILD_NUMBER}")
       }
-    }
+   }
 
-    stage('Remove existing container') {
+    stage('Remove old container') {
       sh 'docker ps -f name=php -q | xargs --no-run-if-empty docker container stop'
       sh 'docker container ls -a -fname=php -q | xargs -r docker container rm'
     }
