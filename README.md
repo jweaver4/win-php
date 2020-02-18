@@ -4,6 +4,6 @@
 
 ### Deploy PHP to a Windows Docker node from a Docker Manager node.  
 
-#### Example: 
+#### Example:
 
 * Run: docker stack deploy -c docker-compose.yaml win_php
