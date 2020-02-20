@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Continue'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR /Users/ContainerAdministrator/Downloads
 
