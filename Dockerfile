@@ -5,15 +5,12 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 WORKDIR /Users/ContainerAdministrator/Downloads
 
 # Visual C++ 2015 Redistributable
-RUN Invoke-WebRequest 'http://10.20.1.4:8081/artifactory/windows-server-local/test/vc_redist.x64.exe' -OutFile 'vc_redist.x64.exe'; \
+RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/vc_redist.x64.exe','vc_redist.x64.exe'; \
     Start-Process '.\vc_redist.x64.exe' '/install /passive /norestart' -Wait; \
     Remove-Item vc_redist.x64.exe;
 
 # Install PHP
-RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-    $fullurl = 'http://10.20.1.4:8081/artifactory/windows-server-local/test/php-7.3.4-Win32-VC15-x64.zip'; \
-    Invoke-WebRequest -Uri $fullurl -OutFile php.zip; \
-    # if ((Get-FileHash php.zip -Algorithm sha1).Hash -ne $sum) {exit 1} ; \
+RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/php-7.3.4-Win32-VC15-x64.zip', 'php.zip'); \
     Expand-Archive -Path php.zip -DestinationPath c:\php; \
     [Environment]::SetEnvironmentVariable('PATH', $env:Path + ';C:\php', [EnvironmentVariableTarget]::Machine); \
     $env:PATH = [Environment]::GetEnvironmentVariable('PATH', [EnvironmentVariableTarget]::Machine); \
