@@ -10,7 +10,7 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
     Remove-Item vc_redist.x64.exe;
 
 # Install PHP
-RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/php-7.3.4-Win32-vc15-x64.zip', 'php.zip'); \
+RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/php-7.4.3-Win32-vc15-x64.zip','php.zip'); \
     Expand-Archive -Path php.zip -DestinationPath c:\php; \
     [Environment]::SetEnvironmentVariable('PATH', $env:Path + ';C:\php', [EnvironmentVariableTarget]::Machine); \
     $env:PATH = [Environment]::GetEnvironmentVariable('PATH', [EnvironmentVariableTarget]::Machine); \
