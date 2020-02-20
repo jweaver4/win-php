@@ -11,7 +11,6 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
 
 # Install PHP
 
-RUN # Install PHP
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     $fullurl = 'http://10.20.1.4:8081/artifactory/windows-server-local/test/php-7.3.4-Win32-VC15-x64.zip'; \
     Invoke-WebRequest -Uri $fullurl -OutFile php.zip; \
