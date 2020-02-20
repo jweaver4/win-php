@@ -20,9 +20,9 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
 COPY stage/ /
 
 RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/composer-setup.php ','C:\php\composer-setup.php'); \
-    cd 'C:\php'; \
+    #cd 'C:\php'; \
     php composer-setup.php; \
-    # mv composer.phar C:\php; \
+    mv composer.phar C:\php; \
     Remove-Item composer-setup.php;
     # composer about;
 
