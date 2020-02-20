@@ -33,8 +33,8 @@ node (label: 'win-agent-1') {
       sh 'docker container ls -a -fname=php -q | xargs -r docker container rm'
       sh 'docker system prune -f'
    }
-   
+
    stage('Deploy new container') {
-     docker.image("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}").run("--name php -p 8081:80")
+     docker.image("pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:${env.BUILD_NUMBER}").run("--name php -p 83:80")
    }
 }
