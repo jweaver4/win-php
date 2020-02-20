@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+FROM microsoft/iis:windowsservercore
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
