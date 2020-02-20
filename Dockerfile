@@ -15,8 +15,8 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
     Expand-Archive -Path php.zip -DestinationPath c:\php; \
     [Environment]::SetEnvironmentVariable('PATH', $env:Path + ';C:\php', [EnvironmentVariableTarget]::Machine); \
     $env:PATH = [Environment]::GetEnvironmentVariable('PATH', [EnvironmentVariableTarget]::Machine); \
-    Remove-Item php.zip; 
-    # php --version;
+    Remove-Item php.zip; \
+    php --version;
 
 COPY stage/ /
 
