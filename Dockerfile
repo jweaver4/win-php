@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Continue'; $ProgressPreference = 'SilentlyContinue';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR /Users/ContainerAdministrator/Downloads
 
@@ -14,7 +14,7 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
     Expand-Archive -Path php.zip -DestinationPath c:\php\ -Force; \
     [Environment]::SetEnvironmentVariable('PATH', $env:Path + ';C:\php', [EnvironmentVariableTarget]::Machine); \
     $env:PATH = [Environment]::GetEnvironmentVariable('PATH', [EnvironmentVariableTarget]::Machine); \
-    Remove-Item php.zip; \
+    # Remove-Item php.zip; \
     php --version;
 
 COPY stage/ /
