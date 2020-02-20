@@ -23,8 +23,8 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
     cd 'C:\php'; \
     php composer-setup.php; \
     # mv composer.phar C:\php; \
-    Remove-Item composer-setup.php; \
-    composer about;
+    Remove-Item composer-setup.php;
+    # composer about;
 
 # Configure IIS
 COPY config/ ./
