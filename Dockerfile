@@ -14,16 +14,16 @@ RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifa
     Expand-Archive -Path php.zip -DestinationPath c:\php\ -Force; \
     [Environment]::SetEnvironmentVariable('PATH', $env:Path + ';C:\php', [EnvironmentVariableTarget]::Machine); \
     $env:PATH = [Environment]::GetEnvironmentVariable('PATH', [EnvironmentVariableTarget]::Machine); \
-    Remove-Item php.zip;
-     php --version;
+    Remove-Item php.zip; \
+    php --version;
 
 COPY stage/ /
 
 RUN (new-object System.Net.WebClient).DownloadFile('http://10.20.1.4:8081/artifactory/windows-server-local/test/composer-setup.php ','composer-setup.php'); \
-     cd 'C:\php'; \
+    cd 'C:\php'; \
     php composer-setup.php; \
     # mv composer.phar C:\php; \
-    Remove-Item composer-setup.php;
+    Remove-Item composer-setup.php; \
     composer about;
 
 # Configure IIS
