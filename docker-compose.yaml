@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   web:
-    image: weavej/php:7.3.0
+    image: pe-201642-agent.puppetdebug.vlan:5000/windows/win_php:latest
     ports:
       - target: 80
         published: 83
